@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\helpers\AdvertisementStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Validator;
 
 class Advertisement extends Model
 {
@@ -30,6 +32,22 @@ class Advertisement extends Model
         return response()->json(['msg' => 'Advertisement created'], 201);
     }
 
+
+    public static function updateAdvertisement($id, $data)
+    {
+        try {
+            $advertisement = Advertisement::findOrFail($id);
+            $advertisement->update($data);
+            return response()->json(['msg' => 'advertisement has been updated']);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => 'no advertisement for id ' . $id],304);
+        }
+    }
+
+    public static function deactiveAdvertisement($id)
+    {
+        return AdvertisementStatus::changeStatus($id, 0);
+    }
 
     protected $fillable = [
         'title', 'content', 'user_id', 'country', 'city'

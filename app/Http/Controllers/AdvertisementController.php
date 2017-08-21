@@ -17,6 +17,7 @@ class AdvertisementController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required',
@@ -48,5 +49,37 @@ class AdvertisementController extends Controller
         } catch (\Exception $exception) {
             return response()->json(['error' => 'no result'], 400);
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        try {
+            $this->validate($request, [
+                'title' => 'required',
+                'content' => 'required',
+                'city' => 'required',
+                'country' => 'required'
+            ]);
+
+            $data = [
+                'title' => \request('title'),
+                'content' => \request('content'),
+                'country' => \request('country'),
+                'city' => \request('city'),
+                'user_id' => AuthClient::getUserId(),
+            ];
+
+            return Advertisement::updateAdvertisement($id, $data);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()]);
+        }
+
+
+    }
+
+    public function destroy($id)
+    {
+        Advertisement::deactiveAdvertisement($id);
     }
 }

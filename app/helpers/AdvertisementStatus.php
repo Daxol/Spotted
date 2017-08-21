@@ -23,7 +23,7 @@ class AdvertisementStatus
             $advertisement->save();
             return response()->json(['msg' => 'status changed successfully']);
         } catch (\Exception $exception) {
-            return response()->json(['error' => 'error'], 304);
+            return response()->json(['error' => 'error, status has not changed'], 304);
         }
     }
 }

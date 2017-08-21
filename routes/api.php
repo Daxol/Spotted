@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::resource('advertisement', 'AdvertisementController', ['only' => ['store', 'index', 'show']]);
+Route::resource('advertisement', 'AdvertisementController', ['only' => ['store', 'index', 'show', 'destroy', 'update']]);
 
 Route::resource('advertisement.comment', 'AdvertisementCommentController', ['only' => ['store']]);
 Route::resource('advertisement.status', 'AdvertisementStatusController', ['only' => ['update']]);
