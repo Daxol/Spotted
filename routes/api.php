@@ -15,7 +15,8 @@ use Illuminate\Http\Request;
 
 Route::resource('advertisement', 'AdvertisementController', ['only' => ['store', 'index', 'show']]);
 
-Route::resource('advertisement.advertisement-comment', 'AdvertisementCommentController', ['only' => ['store']]);
+Route::resource('advertisement.comment', 'AdvertisementCommentController', ['only' => ['store']]);
+Route::resource('advertisement.status', 'AdvertisementStatusController', ['only' => ['update']]);
 
 Route::get('token', 'Auth\AuthController@refresh');
 
