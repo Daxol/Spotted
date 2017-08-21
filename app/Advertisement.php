@@ -12,6 +12,11 @@ class Advertisement extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function advertisementComment()
+    {
+        return $this->hasMany(AdvertisementComment::class);
+    }
+
     public static function store($data)
     {
         try {
@@ -26,8 +31,7 @@ class Advertisement extends Model
     }
 
 
-
     protected $fillable = [
-        'title', 'content', 'user_id','country','city'
+        'title', 'content', 'user_id', 'country', 'city'
     ];
 }

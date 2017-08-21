@@ -8,18 +8,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
+    use Notifiable;
+
     public function advertisements()
     {
         return $this->hasMany(Advertisement::class);
     }
 
-    use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public function advertisementComments()
+    {
+        return $this->hasMany(AdvertisementComment::class);
+    }
+
+
     protected $fillable = [
         'name', 'email', 'password',
     ];
