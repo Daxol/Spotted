@@ -6,9 +6,12 @@ use App\helpers\AdvertisementStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
+use App\helpers\AdvertisementScopes;
 
 class Advertisement extends Model
 {
+    use AdvertisementScopes;
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -40,7 +43,7 @@ class Advertisement extends Model
             $advertisement->update($data);
             return response()->json(['msg' => 'advertisement has been updated']);
         } catch (\Exception $exception) {
-            return response()->json(['error' => 'no advertisement for id ' . $id],304);
+            return response()->json(['error' => 'no advertisement for id ' . $id], 304);
         }
     }
 

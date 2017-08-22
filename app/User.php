@@ -21,6 +21,17 @@ class User extends Authenticatable
         return $this->hasMany(AdvertisementComment::class);
     }
 
+    public function sendMessages()
+    {
+        return $this->hasMany(Message::class, 'user_id', 'id');
+    }
+
+    public function messageThreads()
+    {
+        return MessageThread::where('from_user_id', AuthClient::getUserId())
+            ->orWhere('to_user_id', AuthClient::getUserId())
+            ->get();
+    }
 
     protected $fillable = [
         'name', 'email', 'password',

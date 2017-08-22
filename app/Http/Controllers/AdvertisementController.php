@@ -37,7 +37,33 @@ class AdvertisementController extends Controller
 
     public function index()
     {
-        return Advertisement::all();
+        if (request()->has('country')) {
+            $advertisements = Advertisement::whereCountry(\request('country'));
+        } else {
+            $advertisements = Advertisement::whereCountry('Poland');
+        }
+
+        if (request()->has('city')) {
+            if (request()->has('distance')) {
+                $advertisements->city(request('city'), \request('distance'));
+            } else {
+                $advertisements->city(request('city'));
+            }
+        }
+
+        if (request()->has('keywords')) {
+            $advertisements->keywords(request('keywords'));
+        }
+
+        if (request()->has('category')) {
+            $advertisements->category(request('category'));
+        }
+
+        if (request()->has('paginate')) {
+            return $advertisements->paginate(\request('paginate'));
+        } else {
+            return $advertisements->paginate(20);
+        }
     }
 
     public function show($id)
