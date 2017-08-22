@@ -20,11 +20,13 @@ class DatabaseSeeder extends Seeder
         }
         \Illuminate\Support\Facades\DB::table('users')->insert([
             'name' => str_random(10),
+            'surname' => str_random(10),
             'email' => 'd@o2.pl',
             'password' => bcrypt('123456'),
         ]);
         \Illuminate\Support\Facades\DB::table('users')->insert([
             'name' => str_random(10),
+            'surname' => str_random(10),
             'email' => 'a@o2.pl',
             'password' => bcrypt('123456'),
         ]);

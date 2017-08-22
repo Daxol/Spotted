@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use App\MessageThread;
+use App\User;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -20,6 +21,5 @@ class MessageController extends Controller
     {
         return Message::getMessagesForThread($thread_id);
     }
-
-
+    
 }

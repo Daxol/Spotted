@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::resource('user', 'UserController', ['only' => ['update', 'show']]);
 Route::resource('thread.message', 'MessageController', ['only' => ['store', 'index']]);
 Route::resource('user.thread', 'MessageThreadController', ['only' => ['store', 'index']]);
 

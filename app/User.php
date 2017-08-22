@@ -7,14 +7,48 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
     use Notifiable;
+
+    /**
+     * @param $status
+     * account status
+     * 1 - active (default)
+     * 0 - blocked
+     */
+    public function changeAccountBlockStatus($status)
+    {
+        $this->account_status = $status;
+        $this->save();
+    }
+
+    /**
+     * @param $rank
+     * user rank
+     * 0 - normal (default)
+     * 1 - donator
+     * 2 - premium
+     * 8 - admin
+     * 9 - head admin
+     *
+     */
+    public function changeUserRank($rank)
+    {
+        $this->user_rank = $rank;
+        $this->save();
+    }
+
+    public function updatePersonDetails($data)
+    {
+        $this->name = $data['name'];
+        $this->surname = $data['surname'];
+        $this->birthday = $data['birthday'];
+        $this->save();
+    }
 
     public function advertisements()
     {
         return $this->hasMany(Advertisement::class);
     }
-
 
     public function advertisementComments()
     {
@@ -34,14 +68,9 @@ class User extends Authenticatable
     }
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'surname', 'birthday', 'email', 'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
