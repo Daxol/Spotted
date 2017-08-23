@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('account_status')->default(1);
             $table->integer('user_rank')->default(0);
+            $table->string('lang')->default('pl');
             $table->rememberToken();
             $table->timestamps();
         });

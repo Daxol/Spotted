@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AuthClient;
+use App\GoogleMap\GoogleMap;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,10 @@ class UserController extends Controller
 
     public function test()
     {
-        $user = AuthClient::getUser();
-        return $user->getComplaintFromMe();
+        $google = new GoogleMap();
+        $city = $google->getCityDetailsById('ChIJW-T2Wt7Gt4kRKl2I1CJFUsI','pl');
+        $result = $google->nearbySearch($city['location'], 20000);
+        return $result;
     }
 
     public function show($id)

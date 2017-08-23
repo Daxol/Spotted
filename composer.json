@@ -6,8 +6,10 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "ixudra/curl": "^6.12",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "spatie/laravel-fractal": "^4.5",
         "tymon/jwt-auth": "^0.5.12"
     },
     "require-dev": {

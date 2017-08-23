@@ -9,6 +9,7 @@
 namespace App\helpers;
 
 use App\Advertisement;
+use App\GoogleMap\GoogleMap;
 
 trait AdvertisementScopes
 {
@@ -17,9 +18,15 @@ trait AdvertisementScopes
         return $query->whereCountry($country);
     }
 
-    public function scopeCity($query, $city, $distance = 0)
+    public function scopeCity($query, $city)
     {
-        return $query->whereCity($city);
+        return $query->where('city', $city);
+    }
+
+    public function scopePlace($query, $place)
+    {
+
+        return $query->where('place_id', $place);
     }
 
     public function scopeCategory($query, $category)

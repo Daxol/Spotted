@@ -4,35 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Advertisement;
 use App\AuthClient;
+use App\helpers\Paginator;
+use App\Transformers\AdvertisementTransformer;
 use Illuminate\Http\Request;
+use Spatie\Fractal\Fractal;
 
 class AdvertisementController extends Controller
 {
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
+        try {
+            $this->validate($request, [
+                'title' => 'required',
+                'content' => 'required',
+                'place_id' => 'required',
+                'country' => 'required'
+            ]);
+            $data = [
+                'title' => \request('title'),
+                'content' => \request('content'),
+                'country' => \request('country'),
+                'place_id' => \request('place_id'),
+                'user_id' => AuthClient::getUserId(),
+            ];
+            return Advertisement::store($data);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()]);
+        }
 
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required',
-            'city' => 'required',
-            'country' => 'required'
-        ]);
-        $data = [
-            'title' => \request('title'),
-            'content' => \request('content'),
-            'country' => \request('country'),
-            'city' => \request('city'),
-            'user_id' => AuthClient::getUserId(),
-        ];
-
-        return Advertisement::store($data);
     }
 
     public function index()
@@ -40,7 +40,7 @@ class AdvertisementController extends Controller
         if (request()->has('country')) {
             $advertisements = Advertisement::whereCountry(\request('country'));
         } else {
-            $advertisements = Advertisement::whereCountry('Poland');
+            $advertisements = Advertisement::whereCountry('pl');
         }
 
         if (request()->has('city')) {
@@ -51,6 +51,14 @@ class AdvertisementController extends Controller
             }
         }
 
+        if (request()->has('place_id')) {
+            if (request()->has('distance')) {
+                $advertisements->place(request('place_id'), \request('distance'));
+            } else {
+                $advertisements->place(request('place_id'));
+            }
+        }
+
         if (request()->has('keywords')) {
             $advertisements->keywords(request('keywords'));
         }
@@ -58,11 +66,15 @@ class AdvertisementController extends Controller
         if (request()->has('category')) {
             $advertisements->category(request('category'));
         }
+        $fract = Fractal::create();
 
+        $fract = $fract->collection($advertisements->get(), AdvertisementTransformer::class);
         if (request()->has('paginate')) {
-            return $advertisements->paginate(\request('paginate'));
+
+            return Paginator::paginateCollection(collect($fract->toArray()['data']), \request('paginate'));
         } else {
-            return $advertisements->paginate(20);
+
+            return Paginator::paginateCollection(collect($fract->toArray()['data']), 15);
         }
     }
 
@@ -84,15 +96,11 @@ class AdvertisementController extends Controller
             $this->validate($request, [
                 'title' => 'required',
                 'content' => 'required',
-                'city' => 'required',
-                'country' => 'required'
             ]);
 
             $data = [
                 'title' => \request('title'),
                 'content' => \request('content'),
-                'country' => \request('country'),
-                'city' => \request('city'),
                 'user_id' => AuthClient::getUserId(),
             ];
 

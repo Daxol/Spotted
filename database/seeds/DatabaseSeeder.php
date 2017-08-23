@@ -30,5 +30,18 @@ class DatabaseSeeder extends Seeder
             'email' => 'a@o2.pl',
             'password' => bcrypt('123456'),
         ]);
+        for ($i = 0; $i <= 100; $i++) {
+            \Illuminate\Support\Facades\DB::table('advertisements')->insert([
+                'title' => 'test' . $i,
+                'country' => 'pl',
+                'category' => 1,
+                'place_id' => 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
+                'content' => 'test' . $i,
+                'user_id' => 1,
+                'city_pl'=>'Tychy',
+                'city_en'=>'Tychy'
+
+            ]);
+        }
     }
 }

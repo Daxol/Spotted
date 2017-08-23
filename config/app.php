@@ -177,6 +177,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
+        Spatie\Fractal\FractalServiceProvider::class,
 
     ],
 
@@ -227,6 +229,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'Fractal' => Spatie\Fractal\FractalFacade::class,
 
     ],
 

@@ -16,12 +16,14 @@ class CreateAdvertisementsTable extends Migration
         Schema::create('advertisements', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->integer('category')->default(0);
+            $table->string('country');
+            $table->string('city_pl');
+            $table->string('city_en');
             $table->longText('content');
             $table->integer('user_id');
+            $table->integer('category')->default(0);
+            $table->string('place_id')->default(0);
             $table->integer('status')->default(1);
-            $table->string('country')->default("Poland");
-            $table->string('city');
             $table->timestamps();
         });
     }

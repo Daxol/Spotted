@@ -12,8 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-
+Route::get('getcities/{keyword}/{lang}', 'GoogleMapController@searchCities');
+Route::get('get-city-details/{id}/{lang}', 'GoogleMapController@getCityDetails');
+Route::resource('bugreport', 'BugReportController', ['only' => ['store']]);
 Route::resource('advertisement.complaint', 'AdvertisementComplaintController', ['only' => ['store']]);
 Route::resource('user.complaint', 'UserComplaintController', ['only' => ['store']]);
 Route::resource('user.friendship', 'FriendshipController', ['only' => ['store', 'update', 'index', 'show']]);

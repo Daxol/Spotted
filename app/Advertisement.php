@@ -58,6 +58,6 @@ class Advertisement extends Model
     }
 
     protected $fillable = [
-        'title', 'content', 'user_id', 'country', 'city'
+        'title', 'content', 'user_id', 'place_id', 'city_pl', 'city_en','country'
     ];
 }

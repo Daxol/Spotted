@@ -79,8 +79,13 @@ class User extends Authenticatable
             ->get();
     }
 
+    public function getLang()
+    {
+        return $this->lang;
+    }
+
     protected $fillable = [
-        'name', 'surname', 'birthday', 'email', 'password',
+        'name', 'surname', 'birthday', 'email', 'password', 'lang'
     ];
 
     protected $hidden = [
