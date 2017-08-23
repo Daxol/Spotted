@@ -45,6 +45,17 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function friendships()
+    {
+        return $this->hasMany(Friendship::class);
+    }
+
+    public static function friends($id)
+    {
+        return Friendship::where('user_id', $id)
+            ->orWhere('receiver_user_id', $id)->get();
+    }
+
     public function advertisements()
     {
         return $this->hasMany(Advertisement::class);
