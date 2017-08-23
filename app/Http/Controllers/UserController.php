@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
+    public function test()
+    {
+        $user = AuthClient::getUser();
+        return $user->getComplaintFromMe();
+    }
 
     public function show($id)
     {

@@ -17,6 +17,11 @@ class Advertisement extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function advertisementComplaint()
+    {
+        return $this->hasMany(AdvertisementComplaint::class);
+    }
+
     public function advertisementComment()
     {
         return $this->hasMany(AdvertisementComment::class);

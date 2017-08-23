@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
+
+Route::resource('advertisement.complaint', 'AdvertisementComplaintController', ['only' => ['store']]);
+Route::resource('user.complaint', 'UserComplaintController', ['only' => ['store']]);
 Route::resource('user.friendship', 'FriendshipController', ['only' => ['store', 'update', 'index', 'show']]);
 Route::resource('user', 'UserController', ['only' => ['update', 'show']]);
 Route::resource('thread.message', 'MessageController', ['only' => ['store', 'index']]);
@@ -26,8 +29,4 @@ Route::resource('advertisement.status', 'AdvertisementStatusController', ['only'
 
 Route::get('token', 'Auth\AuthController@refresh');
 
-Route::get('test', function () {
-    if (\request('to')) {
-        return \request('to');
-    }
-});
+Route::get('test', 'UserController@test');
