@@ -10,13 +10,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function test()
-    {
-        $google = new GoogleMap();
-        $city = $google->getCityDetailsById('ChIJW-T2Wt7Gt4kRKl2I1CJFUsI','pl');
-        $result = $google->nearbySearch($city['location'], 20000);
-        return $result;
-    }
 
     public function show($id)
     {
@@ -29,7 +22,7 @@ class UserController extends Controller
             $this->validate($request, [
                 'name' => 'required|min:2|max:30',
                 'surname' => 'required|min:2|max:30',
-                'birthday' => 'required'
+                'birthday' => 'required|date'
             ]);
             $user = AuthClient::getUser();
             $user->updatePersonDetails(request()->all());

@@ -11,11 +11,11 @@ class UserComplaintController extends Controller
     {
         try {
             $this->validate($request, ['content' => 'required|max:200|min:3', 'type' => 'required|min:1|max:1']);
+            return UserComplaint::createComplaint($id, \request(['content', 'type']));
 
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()]);
         }
 
-        return UserComplaint::createComplaint($id, \request(['content', 'type']));
     }
 }

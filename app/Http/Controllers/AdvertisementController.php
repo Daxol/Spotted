@@ -11,15 +11,15 @@ use Spatie\Fractal\Fractal;
 
 class AdvertisementController extends Controller
 {
-    
+
     public function store(Request $request)
     {
         try {
             $this->validate($request, [
-                'title' => 'required',
-                'content' => 'required',
-                'place_id' => 'required',
-                'country' => 'required'
+                'title' => 'required|max:40',
+                'content' => 'required|max:200',
+                'place_id' => 'required|max:200',
+                'country' => 'required|max:2'
             ]);
             $data = [
                 'title' => \request('title'),
@@ -44,19 +44,11 @@ class AdvertisementController extends Controller
         }
 
         if (request()->has('city')) {
-            if (request()->has('distance')) {
-                $advertisements->city(request('city'), \request('distance'));
-            } else {
-                $advertisements->city(request('city'));
-            }
+            $advertisements->city(request('city'));
         }
 
         if (request()->has('place_id')) {
-            if (request()->has('distance')) {
-                $advertisements->place(request('place_id'), \request('distance'));
-            } else {
-                $advertisements->place(request('place_id'));
-            }
+            $advertisements->place(request('place_id'));
         }
 
         if (request()->has('keywords')) {
@@ -94,8 +86,8 @@ class AdvertisementController extends Controller
 
         try {
             $this->validate($request, [
-                'title' => 'required',
-                'content' => 'required',
+                'title' => 'required|max:40',
+                'content' => 'required|max:200',
             ]);
 
             $data = [

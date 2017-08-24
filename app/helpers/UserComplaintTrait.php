@@ -15,11 +15,11 @@ trait UserComplaintTrait
 {
     public function getComplaintOnMe()
     {
-        return UserComplaint::where('receiver_id', $this->id)->get();
+        return UserComplaint::where('receiver_id', $this->id);
     }
 
     public function getComplaintFromMe()
     {
-        return UserComplaint::where('declarant_id', $this->id)->get();
+        return UserComplaint::where('declarant_id', $this->id);
     }
 }

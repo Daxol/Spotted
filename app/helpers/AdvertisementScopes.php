@@ -20,7 +20,7 @@ trait AdvertisementScopes
 
     public function scopeCity($query, $city)
     {
-        return $query->where('city', $city);
+        return $query->where('city_pl', $city)->orWhere('city_en',$city);
     }
 
     public function scopePlace($query, $place)

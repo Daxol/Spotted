@@ -23,7 +23,7 @@ class GoogleMapController extends Controller
         try {
             $googleMap = new GoogleMap();
 
-         return   $googleMap->getCityDetailsById($id, $lang);
+            return $googleMap->getCityDetailsById($id, $lang);
         } catch (\Exception $exception) {
             return $exception->getMessage();
         }
