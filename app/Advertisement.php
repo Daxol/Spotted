@@ -49,6 +49,9 @@ class Advertisement extends Model
     {
         try {
             $advertisement = Advertisement::findOrFail($id);
+            if ($advertisement->user_id != AuthClient::getUserId()) {
+                return response()->json(['error' => 'not authorized'], 401);
+            }
             $advertisement->update($data);
             return response()->json(['msg' => 'advertisement has been updated']);
         } catch (\Exception $exception) {
