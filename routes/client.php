@@ -14,3 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/signin', 'AuthController@signIn');
+Route::get('/test1', function () {
+    return view('welcome');
+});

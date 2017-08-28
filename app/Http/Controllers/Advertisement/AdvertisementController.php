@@ -17,6 +17,8 @@ class AdvertisementController extends Controller
     public function store(Request $request)
     {
         try {
+
+
             $this->validate($request, [
                 'title' => 'required|max:40',
                 'content' => 'required|max:200',
@@ -45,6 +47,13 @@ class AdvertisementController extends Controller
             $advertisements = Advertisement::whereCountry('pl');
         }
 
+        if (request()->has('date_from')) {
+            $advertisements->date_from(request('date_from'));
+        }
+        if (request()->has('date_until')) {
+            $advertisements->date_until(request('date_until'));
+        }
+
         if (request()->has('city')) {
             $advertisements->city(request('city'));
         }
@@ -56,6 +65,12 @@ class AdvertisementController extends Controller
         if (request()->has('keywords')) {
             $advertisements->keywords(request('keywords'));
         }
+        if (request()->has('status')) {
+            $advertisements->status(request('status'));
+        } else {
+            $advertisements->where('status', '>=', 1);
+        }
+
 
         if (request()->has('category')) {
             $advertisements->category(request('category'));

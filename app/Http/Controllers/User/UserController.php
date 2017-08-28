@@ -23,6 +23,10 @@ class UserController extends Controller
             $user = AuthClient::getUser();
 
             if (!empty($request['password'])) {
+                $this->validate($request, [
+                    'password' => 'required|confirmed|min:6'
+                ]);
+
                 return $user->changePassword($request['password']);
             }
 

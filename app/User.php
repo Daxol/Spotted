@@ -62,6 +62,12 @@ class User extends Authenticatable
         return $this->hasMany(Advertisement::class);
     }
 
+    public function changePassword($newPassword)
+    {
+        $this->password = bcrypt($newPassword);
+        $this->save();
+    }
+
     public function advertisementComments()
     {
         return $this->hasMany(AdvertisementComment::class);

@@ -28,7 +28,7 @@ class Advertisement extends Model
         return $this->hasMany(AdvertisementComment::class);
     }
 
-    public static function store($data)
+    public static function store($data, $image = false)
     {
         try {
             if (!self::checkIfUserCanAddNewAdvertisementNow()) {
@@ -36,12 +36,19 @@ class Advertisement extends Model
             }
             $newAdvertisement = new Advertisement($data);
             $newAdvertisement->save();
+            if (request()->hasFile('userFile')) {
+
+                request()->file('userFile')->move(public_path('img/advertisementsPhotos'), $newAdvertisement->id. '.jpg');
+
+                return response()->json(['msg' => 'Advertisement created with photo'], 201);
+            } else {
+                return response()->json(['msg' => 'Advertisement created without photo'], 201);
+            }
         } catch (\Exception $exception) {
             return response()->json([
                 'error' => $exception->getMessage()
             ], 500);
         }
-        return response()->json(['msg' => 'Advertisement created'], 201);
     }
 
 
