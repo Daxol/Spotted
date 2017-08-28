@@ -34,6 +34,7 @@ class User extends Authenticatable
      */
     public function changeUserRank($rank)
     {
+
         $this->user_rank = $rank;
         $this->save();
     }
@@ -66,6 +67,15 @@ class User extends Authenticatable
     {
         $this->password = bcrypt($newPassword);
         $this->save();
+    }
+
+    public function isAdmin()
+    {
+        $rank = $this->user_rank;
+        if ($rank === 9 || $rank === 8) {
+            return true;
+        }
+        return false;
     }
 
     public function advertisementComments()

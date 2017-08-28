@@ -37,4 +37,6 @@ class AdvertisementComplaint extends Model
     {
         return $this->belongsTo(Advertisement::class);
     }
+
+
 }
