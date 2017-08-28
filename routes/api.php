@@ -15,19 +15,19 @@ use Illuminate\Http\Request;
 Route::get('getcities/{keyword}/{lang}', 'GoogleMapController@searchCities');
 Route::get('get-city-details/{id}/{lang}', 'GoogleMapController@getCityDetails');
 Route::resource('bugreport', 'BugReportController', ['only' => ['store']]);
-Route::resource('advertisement.complaint', 'AdvertisementComplaintController', ['only' => ['store']]);
-Route::resource('user.complaint', 'UserComplaintController', ['only' => ['store']]);
-Route::resource('user.friendship', 'FriendshipController', ['only' => ['store', 'update', 'index', 'show']]);
-Route::resource('user', 'UserController', ['only' => ['update', 'show']]);
-Route::resource('thread.message', 'MessageController', ['only' => ['store', 'index']]);
-Route::resource('user.thread', 'MessageThreadController', ['only' => ['store', 'index']]);
+Route::resource('advertisement.complaint', 'Advertisement\AdvertisementComplaintController', ['only' => ['store']]);
+Route::resource('user.complaint', 'User\UserComplaintController', ['only' => ['store']]);
+Route::resource('user.friendship', 'User\FriendshipController', ['only' => ['store', 'update', 'index', 'show']]);
+Route::resource('user', 'User\UserController', ['only' => ['update', 'show']]);
+Route::resource('thread.message', 'Message\MessageController', ['only' => ['store', 'index']]);
+Route::resource('user.thread', 'Message\MessageThreadController', ['only' => ['store', 'index']]);
 
 
-Route::resource('advertisement', 'AdvertisementController', ['only' => ['store', 'index', 'show', 'destroy', 'update']]);
+Route::resource('advertisement', 'Advertisement\AdvertisementController', ['only' => ['store', 'index', 'show', 'destroy', 'update']]);
 
-Route::resource('advertisement.comment', 'AdvertisementCommentController', ['only' => ['store']]);
-Route::resource('advertisement.status', 'AdvertisementStatusController', ['only' => ['update']]);
+Route::resource('advertisement.comment', 'Advertisement\AdvertisementCommentController', ['only' => ['store']]);
+Route::resource('advertisement.status', 'Advertisement\AdvertisementStatusController', ['only' => ['update']]);
 
 Route::get('token', 'Auth\AuthController@refresh');
 
-Route::get('test', 'UserController@test');
+Route::get('test', 'User\UserController@test');

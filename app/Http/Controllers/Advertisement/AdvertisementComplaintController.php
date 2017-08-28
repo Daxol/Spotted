@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Advertisement;
 
 use App\AdvertisementComplaint;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class AdvertisementComplaintController extends Controller
 {

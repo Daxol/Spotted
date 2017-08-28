@@ -67,7 +67,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-            ->middleware('jwt.auth')
+            ->middleware(['jwt.auth','user_status'])
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
     }

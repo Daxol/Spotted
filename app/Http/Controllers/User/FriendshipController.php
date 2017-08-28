@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\AuthClient;
 use App\Friendship;
+use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Integer;

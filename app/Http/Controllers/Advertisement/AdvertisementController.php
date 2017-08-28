@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Advertisement;
 
 use App\Advertisement;
 use App\AuthClient;
@@ -8,6 +8,8 @@ use App\helpers\Paginator;
 use App\Transformers\AdvertisementTransformer;
 use Illuminate\Http\Request;
 use Spatie\Fractal\Fractal;
+use App\Http\Controllers\Controller;
+
 
 class AdvertisementController extends Controller
 {

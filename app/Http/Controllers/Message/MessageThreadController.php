@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Message;
 
 use App\AuthClient;
+use App\Http\Controllers\Controller;
 use App\MessageThread;
 use Illuminate\Http\Request;
 

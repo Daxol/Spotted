@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Advertisement;
 
 use App\helpers\AdvertisementStatus;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class AdvertisementStatusController extends Controller
 {
