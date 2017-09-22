@@ -27,6 +27,5 @@ Route::resource('advertisement.status', 'Advertisement\AdvertisementStatusContro
 Route::resource('advertisement.complaint', 'Advertisement\AdvertisementComplaintController', ['only' => ['store', 'show', 'index']]);
 Route::resource('advertisement.comment', 'Advertisement\AdvertisementCommentController', ['only' => ['store']]);
 
-Route::get('token', 'Auth\AuthController@refresh');
 
 Route::get('test', 'User\UserController@test');

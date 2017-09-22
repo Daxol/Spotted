@@ -14,4 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/signin', 'AuthController@signIn');
-Route::get('/test1', 'Advertisement\AdvertisementController@index');
+Route::get('/token', 'AuthController@refresh');
+
+//Route::get('/test1', 'Advertisement\AdvertisementController@index');

@@ -16,14 +16,16 @@ class AuthController extends Controller
     public function signIn(Request $request)
     {
 
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-
-        $credentials = $request->only('email', 'password');
 
         try {
+
+            $this->validate($request, [
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
+
+            $credentials = $request->only('email', 'password');
+
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['msg' => 'Invalid credentials'], 401);
             }
@@ -36,20 +38,17 @@ class AuthController extends Controller
     }
 
 
-
     public function refresh()
     {
         $token = JWTAuth::getToken();
         if (!$token) {
-            return $this->response()->json(
-                ['msg' => 'Token is invalid']
-            );
+            return $this->response()->json(['msg' => 'Token is invalid'], 401);
 
         }
         try {
             $refreshedToken = JWTAuth::refresh($token);
         } catch (JWTException $exception) {
-            return response()->json(['error' => $exception->getMessage()]);
+            return response()->json(['error' => $exception->getMessage()], 401);
         }
         return response()->json(['token' => $refreshedToken]);
     }

@@ -80,11 +80,10 @@ class AdvertisementController extends Controller
         $fract = $fract->collection($advertisements->get(), AdvertisementTransformer::class);
         if (request()->has('paginate')) {
 
-            return response()->json(['data' => Paginator::paginateCollection(collect($fract->toArray()['data']), \request('paginate'))]);
-
+            return Paginator::paginateCollection(collect($fract->toArray()['data']), \request('paginate'));
         } else {
 
-            return response()->json(['data' => Paginator::paginateCollection(collect($fract->toArray()['data']), 15)]);
+            return Paginator::paginateCollection(collect($fract->toArray()['data']), 15);
         }
     }
 
