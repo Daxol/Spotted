@@ -40,12 +40,12 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        $token = JWTAuth::getToken();
-        if (!$token) {
-            return $this->response()->json(['msg' => 'Token is invalid'], 401);
 
-        }
-        try {
+        try {$token = JWTAuth::getToken();
+            if (!$token) {
+                return $this->response()->json(['msg' => 'Token is invalid'], 401);
+
+            }
             $refreshedToken = JWTAuth::refresh($token);
         } catch (JWTException $exception) {
             return response()->json(['error' => $exception->getMessage()], 401);

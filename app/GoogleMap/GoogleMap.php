@@ -12,6 +12,8 @@ use App\AuthClient;
 use App\Transformers\GoogleMapCitiesTransformer;
 use Ixudra\Curl\Facades\Curl;
 use League\Fractal\Resource\Collection;
+use Mockery\Exception;
+use PhpParser\Node\Expr\Array_;
 use Spatie\Fractal\Fractal;
 
 class GoogleMap
@@ -32,6 +34,7 @@ class GoogleMap
         )->get();
         $response = json_decode($response, true);
         $cities = Fractal::create();
+//        return $response['predictions'];
         $cities = $cities->collection($response['predictions'])->transformWith(GoogleMapCitiesTransformer::class)->toArray();
         return $cities;
 
@@ -39,19 +42,33 @@ class GoogleMap
 
     public function getCityDetailsById($city_id, $lang)
     {
-        $response = Curl::to(
-            $this->baseHTTP . '/place/details/json?key=' . $this->key .
-            '&placeid=' . $city_id . '&language=' . $lang
-        )->get();
-        $response = json_decode($response, true);
-        return ['formatted_address' => $response['result']['formatted_address'],
-            'name' => $response['result']['name'],
-            'location' =>
-                [
-                    'lat' => $response['result']['geometry']['location']['lat'],
-                    'lng' => $response['result']['geometry']['location']['lng']
-                ]
-        ];
+        try {
+            $response = Curl::to(
+                $this->baseHTTP . '/place/details/json?key=' . $this->key .
+                '&placeid=' . $city_id . '&language=' . $lang
+            )->get();
+            $response = json_decode($response, true);
+//            return $response;
+            $country = "";
+            foreach ($response['result']['address_components'] as $component) {
+//                return $component['types'];
+                if (in_array( "country", $component['types'])) {
+                    $country = $component['short_name'];
+                }
+            }
+            return ['formatted_address' => $response['result']['formatted_address'],
+                'name' => $response['result']['name'],
+                'country' => $country,
+                'location' =>
+                    [
+                        'lat' => $response['result']['geometry']['location']['lat'],
+                        'lng' => $response['result']['geometry']['location']['lng']
+                    ]
+            ];
+        } catch (Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
+
     }
 //
 //    public function nearbySearch($location, $radius)

@@ -17,7 +17,7 @@ class GoogleMapCitiesTransformer extends TransformerAbstract
             'description' => $data['description'],
             'place_id' => $data['place_id'],
             'main_text' => $data['structured_formatting']['main_text'],
-            'lat' => $data['geometry']['location']['lat']
+//            'lat' => $data['geometry']['location']['lat']
         ];
     }
 }
