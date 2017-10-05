@@ -28,26 +28,28 @@ class Advertisement extends Model
         return $this->hasMany(AdvertisementComment::class);
     }
 
-    public static function store($data, $image = false)
+    public static function store($data)
     {
         try {
+
             if (!self::checkIfUserCanAddNewAdvertisementNow()) {
-                return response()->json(['error' => 'spam block, wait or donate'], 403);
+                return response()->json(['msg' => 'spam block, wait or donate'], 403);
             }
             $newAdvertisement = new Advertisement($data);
             $newAdvertisement->save();
-            if (request()->hasFile('userFile')) {
+            if (request()->hasFile('userfile')) {
 
-                request()->file('userFile')->move(public_path('img/advertisementsPhotos'), $newAdvertisement->id. '.jpg');
+                request()->file('userfile')->move(public_path('img/advertisementsPhotos'), $newAdvertisement->id . '.jpg');
 
                 return response()->json(['msg' => 'Advertisement created with photo'], 201);
             } else {
+
                 return response()->json(['msg' => 'Advertisement created without photo'], 201);
             }
         } catch (\Exception $exception) {
             return response()->json([
-                'error' => $exception->getMessage()
-            ], 500);
+                'msg' => $exception->getMessage()
+            ], 200);
         }
     }
 

@@ -16,6 +16,9 @@ class AdvertisementController extends Controller
 
     public function store(Request $request)
     {
+//        error_log(print_r($request, TRUE));
+
+
         try {
 
 
@@ -25,6 +28,7 @@ class AdvertisementController extends Controller
                 'place_id' => 'required|max:200',
                 'country' => 'required|max:2'
             ]);
+
             $data = [
                 'title' => \request('title'),
                 'content' => \request('content'),

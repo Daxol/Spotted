@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Transformers\AdvertisementCommentTransformer;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Fractal\Fractal;
 
 class AdvertisementComment extends Model
 {
@@ -37,5 +39,16 @@ class AdvertisementComment extends Model
 
     }
 
-    protected $fillable = ['user_id', 'content', 'advertisement_id'];
+    public static function getComments($advertisement_id)
+    {
+        $fract = Fractal::create();
+
+        $fract = $fract->collection(Advertisement::findOrFail($advertisement_id)->advertisementComment, AdvertisementCommentTransformer::class);
+
+        return $fract->toArray()['data'];
+
+    }
+
+    protected
+        $fillable = ['user_id', 'content', 'advertisement_id'];
 }

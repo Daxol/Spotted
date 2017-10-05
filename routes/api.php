@@ -25,7 +25,7 @@ Route::resource('bugreport', 'BugReportController', ['only' => ['store','show','
 Route::resource('advertisement', 'Advertisement\AdvertisementController', ['only' => ['store', 'index', 'show', 'destroy', 'update']]);
 Route::resource('advertisement.status', 'Advertisement\AdvertisementStatusController', ['only' => ['update']]);
 Route::resource('advertisement.complaint', 'Advertisement\AdvertisementComplaintController', ['only' => ['store', 'show', 'index']]);
-Route::resource('advertisement.comment', 'Advertisement\AdvertisementCommentController', ['only' => ['store']]);
+Route::resource('advertisement.comment', 'Advertisement\AdvertisementCommentController', ['only' => ['store','index']]);
 
 
 Route::get('test', 'User\UserController@test');
