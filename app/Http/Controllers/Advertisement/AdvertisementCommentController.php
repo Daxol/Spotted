@@ -24,7 +24,7 @@ class AdvertisementCommentController extends Controller
         try {
             return AdvertisementComment::getComments($advertisement_id);
         } catch (\Exception $exception) {
-            return response()->json(["error" => "error"], 500);
+            return response()->json(["error" => "error". $exception->getMessage()], 500);
         }
     }
 

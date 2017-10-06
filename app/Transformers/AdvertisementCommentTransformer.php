@@ -24,8 +24,8 @@ class AdvertisementCommentTransformer extends TransformerAbstract
             ],
             'advertisement_id' =>$comment['advertisement_id'],
             'content' => $comment['content'],
-            'created_at' =>$comment['created_at'],
-            'update_at' =>$comment['update_at'],
+            'created_at' =>$comment['created_at']->toDateTimeString(),
+            'updated_at' =>$comment['updated_at']->toDateTimeString(),
         ];
     }
 }
