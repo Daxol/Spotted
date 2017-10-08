@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class AdvertisementComplaint extends Model
@@ -13,6 +14,21 @@ class AdvertisementComplaint extends Model
     {
         try {
             $advertisement = Advertisement::findOrFail($advertisement_id);
+            $user = AuthClient::getUser();
+            $lastReport = $user->advertisementComplaints()->where('created_at', '>',
+                Carbon::now()
+                    ->subMinutes(2)
+                    ->toDateTimeString())
+                ->get();
+            $lastMonthReports = $user->advertisementComplaints()->where('created_at', '>',
+                Carbon::now()
+                    ->subDays(1)
+                    ->toDateTimeString())
+                ->get();
+            error_log(count($lastReport) . " " . count($lastMonthReports));
+            if (count($lastReport) >= 1 ||count($lastMonthReports)  >= 5) {
+                return response()->json(['error' => 'limit of reports'], 304);
+            }
             $advertisementComplaint = new AdvertisementComplaint(
                 [
                     'content' => $data['content'],

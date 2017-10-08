@@ -59,7 +59,12 @@ class AdvertisementController extends Controller
         }
 
         if (request()->has('city')) {
-            $advertisements->city(request('city'));
+            $advertisements->city(\request('city')[0]);
+
+            foreach (\request('city') as $city) {
+                $advertisements->orWhere('city_pl',$city);
+                $advertisements->orWhere('city_en',$city);
+            }
         }
 
         if (request()->has('place_id')) {

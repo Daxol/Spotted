@@ -39,6 +39,11 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function advertisementComplaints()
+    {
+        return $this->hasMany(AdvertisementComplaint::class);
+    }
+
     public function updatePersonDetails($data)
     {
         $this->name = $data['name'];
