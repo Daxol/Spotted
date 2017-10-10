@@ -32,4 +32,9 @@ class FriendshipController extends Controller
     {
         return Friendship::changeFriendshipStatus($id, \request('status'));
     }
+
+    public function getstatus($id)
+    {
+        return Friendship::getFriendshipStatus($id);
+    }
 }

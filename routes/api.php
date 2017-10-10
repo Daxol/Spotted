@@ -16,6 +16,7 @@ Route::get('getcities/{keyword}/{lang}', 'GoogleMapController@searchCities');
 Route::get('get-city-details/{id}/{lang}', 'GoogleMapController@getCityDetails');
 Route::resource('user', 'User\UserController', ['only' => ['update', 'show']]);
 Route::resource('user.friendship', 'User\FriendshipController', ['only' => ['store', 'update', 'index', 'show']]);
+Route::get('user/{id}/friendship-status', 'User\FriendshipController@getstatus');
 Route::resource('user.thread', 'Message\MessageThreadController', ['only' => ['store', 'index']]);
 Route::resource('thread.message', 'Message\MessageController', ['only' => ['store', 'index']]);
 Route::resource('user.complaint', 'User\UserComplaintController', ['only' => ['store','show','index']]);

@@ -67,4 +67,32 @@ class Friendship extends Model
             return response()->json(['error' => $exception->getMessage()]);
         }
     }
+
+    public static function getFriendshipStatus($id)
+    {
+        try {
+            $user = AuthClient::getUser();
+            if ($user->id === $id) {
+                return response()->json(['first_status' => -2, 'second_status' => -2, 'msg' => 'you cannot have friendship with yourself']);
+            }
+            $friendship = Friendship::where(['user_id' => $id, 'receiver_user_id' => $user->id])
+                ->orWhere(['user_id' => $user->id, 'receiver_user_id' => $id])->get();
+            if (count($friendship) == 0) {
+                return response()->json(['first_status' => -1, 'second_status' => -1, 'msg' => 'no friendship']);
+            }
+            if ($friendship[0]->user_id == $id) {
+                return response()->json([
+                    'first_status' => $friendship[0]->status_receiver,
+                    'second_status' => $friendship[0]->status_sender,
+                    'msg' => 'is friendship']);
+            } else {
+                return response()->json([
+                    'first_status' => $friendship[0]->status_sender,
+                    'second_status' => $friendship[0]->status_receiver,
+                    'msg' => 'is friendship']);
+            }
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
 }
