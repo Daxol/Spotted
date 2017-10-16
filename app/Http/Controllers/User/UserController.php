@@ -5,8 +5,10 @@ namespace App\Http\Controllers\User;
 use App\AuthClient;
 use App\GoogleMap\GoogleMap;
 use App\Http\Controllers\Controller;
+use App\Transformers\UserTransformer;
 use App\User;
 use Illuminate\Http\Request;
+use Spatie\Fractal\Fractal;
 
 class UserController extends Controller
 {
@@ -14,7 +16,20 @@ class UserController extends Controller
 
     public function show($id)
     {
-        return User::findOrFail($id);
+
+        if ($id === "me") {
+            $user = AuthClient::getUser();
+        } else {
+            $user = User::findOrFail($id);
+
+        }
+
+        $fract = Fractal::create();
+
+        $respo = $fract->item($user, UserTransformer::class);
+        return $respo->toArray()['data'];
+
+
     }
 
     public function update(Request $request, $id)
